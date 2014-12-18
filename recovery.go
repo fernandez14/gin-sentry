@@ -24,7 +24,7 @@ func Recovery(client *raven.Client, onlyCrashes bool) gin.HandlerFunc {
 			}
 			if !onlyCrashes {
 				for _, item := range c.Errors {
-					packet := raven.NewPacket(item.Message, &raven.Message{item.Message, []interface{}{item.Meta}})
+					packet := raven.NewPacket(item.Message, &raven.Message{item.Err, []interface{}{item.Meta}})
 					client.Capture(packet, flags)
 				}
 			}
